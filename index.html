@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>pluk</title>
+<meta name="description" content="Elke dag een journal-vraagje om te plukken.">
+<meta name="theme-color" content="#A9C4FA">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="pluk">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Grandstander:wght@700;800&family=Nunito:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="frame">
+<div id="stage">
+
+  <!-- ===== Scherm: vandaag ===== -->
+  <section id="view-today" class="view" aria-labelledby="logo">
+    <img class="deco" src="assets/main-cloud-l.svg" alt="" style="left:-30px; top:109px; width:150px">
+    <img class="deco" src="assets/main-cloud-r.svg" alt="" style="left:294px; top:21px; width:140px">
+
+    <div class="grass" style="height:220px">
+      <img class="grass-edge" src="assets/main-grass.svg" alt="">
+      <img class="deco" src="assets/main-tuft1.svg" alt="" style="left:168px; top:58px; width:54px">
+      <img class="deco" src="assets/main-tuft2.svg" alt="" style="left:41px; top:104px; width:44px">
+      <img class="deco" src="assets/main-tuft3.svg" alt="" style="left:320px; top:88px; width:40px">
+      <img class="deco" src="assets/main-daisy-big.svg" alt="" style="left:18px; top:75px; width:46px">
+      <img class="deco" src="assets/main-daisy-small.svg" alt="" style="left:300px; top:136px; width:28px">
+    </div>
+
+    <h1 id="logo" class="logo">pluk</h1>
+    <span id="date" class="pill pill-date"></span>
+
+    <article id="card" class="card" aria-live="polite">
+      <div class="card-head">
+        <span id="prompt-nr" class="pill pill-nr"></span>
+        <img src="assets/card-face.svg" alt="" width="30" height="30">
+      </div>
+      <p id="prompt" class="prompt"></p>
+    </article>
+
+    <p id="counter" class="counter"></p>
+    <div id="plucks" class="plucks" aria-hidden="true"></div>
+
+    <div id="actions-open" class="actions">
+      <button id="btn-pick" class="btn btn-pink" type="button">deze neem ik!</button>
+      <button id="btn-shuffle" class="btn btn-white" type="button">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3h5v5"/><path d="M4 20 21 3"/><path d="M21 16v5h-5"/><path d="M15 15l6 6"/><path d="M4 4l5 5"/></svg>
+        <span id="shuffle-label">pluk opnieuw</span>
+      </button>
+    </div>
+    <div id="actions-picked" class="actions" hidden>
+      <button id="btn-to-garden" class="btn btn-pink" type="button">naar mijn tuin</button>
+      <p class="note">deze vraag krijg je nooit meer opnieuw</p>
+    </div>
+    <div id="actions-done" class="actions" hidden>
+      <button id="btn-restart" class="btn btn-white" type="button">opnieuw beginnen</button>
+      <p class="note">al je vraagjes komen dan terug</p>
+    </div>
+  </section>
+
+  <!-- ===== Scherm: mijn tuin ===== -->
+  <section id="view-garden" class="view" aria-labelledby="garden-title" hidden>
+    <img class="deco" src="assets/tuin-cloud-r.svg" alt="" style="left:236px; top:19px; width:160px">
+    <img class="deco" src="assets/tuin-cloud-l.svg" alt="" style="left:-40px; top:120px; width:120px">
+    <div class="grass grass-garden">
+      <img class="grass-edge" src="assets/tuin-grass.svg" alt="">
+    </div>
+    <h1 id="garden-title" class="garden-title">mijn tuin</h1>
+    <div id="garden-flowers" aria-hidden="true">
+      <img class="deco" src="assets/tuin-flowers-1.svg" alt="" style="left:44px; top:204px; width:38px">
+      <img class="deco" src="assets/tuin-flowers-2.svg" alt="" style="left:116px; top:212px; width:30px">
+      <img class="deco" src="assets/tuin-flowers-3.svg" alt="" style="left:170px; top:190px; width:52px">
+      <img class="deco" src="assets/tuin-flowers-4.svg" alt="" style="left:252px; top:208px; width:34px">
+      <img class="deco" src="assets/tuin-flowers-5.svg" alt="" style="left:312px; top:198px; width:42px">
+    </div>
+    <ul id="garden-list" class="garden-list"></ul>
+  </section>
+
+  <nav class="tabbar" aria-label="Hoofdmenu">
+    <button id="tab-today" class="tab is-active" type="button" aria-current="page">vandaag</button>
+    <button id="tab-garden" class="tab" type="button">mijn tuin</button>
+  </nav>
+
+</div>
+</div>
+<script src="prompts.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

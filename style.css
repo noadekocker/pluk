@@ -1,0 +1,190 @@
+:root {
+  --ink: #1B1B1B;
+  --sky: #A9C4FA;
+  --grass: #2F9446;
+  --pink: #F062B8;
+  --light-pink: #F8B6DA;
+  --yellow: #F8D24A;
+  --grey-text: #3D3D3D;
+  --off: #E4ECFB;
+  --s: 1;          /* schaal, gezet door app.js */
+  --H: 844;        /* hoogte van het scherm in ontwerp-pixels, gezet door app.js */
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--sky);
+  color: var(--ink);
+  font-family: Grandstander, system-ui, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+body { overflow: hidden; }
+
+/* Het ontwerp is 390 px breed. Het "stage" wordt geschaald naar het scherm. */
+#frame {
+  position: relative;
+  width: calc(390px * var(--s));
+  height: calc(var(--H) * var(--s) * 1px);
+  margin: 0 auto;
+  overflow: hidden;
+}
+#stage {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 390px;
+  height: calc(var(--H) * 1px);
+  transform: scale(var(--s));
+  transform-origin: 0 0;
+  overflow: hidden;
+  background: var(--sky);
+}
+
+/* Op een groot scherm tonen we de app als telefoon in het midden */
+body.desktop { display: flex; align-items: center; justify-content: center; background: #DCE6FB; }
+body.desktop #frame {
+  margin: 0;
+  border-radius: calc(44px * var(--s));
+  box-shadow: 0 0 0 calc(3px * var(--s)) var(--ink), calc(8px * var(--s)) calc(8px * var(--s)) 0 calc(3px * var(--s)) var(--ink);
+}
+
+.view { position: absolute; inset: 0; }
+.view[hidden] { display: none; }
+
+.deco { position: absolute; display: block; height: auto; pointer-events: none; user-select: none; }
+
+/* ---------- Gras ---------- */
+.grass { position: absolute; left: 0; right: 0; bottom: 0; background: var(--grass); background-clip: content-box; padding-top: 34px; }
+.grass-edge { position: absolute; left: 0; top: 0; width: 390px; height: 36px; display: block; }
+.grass-garden { top: 236px; }
+
+/* ---------- Kop ---------- */
+.logo {
+  position: absolute; left: 29px; top: 57px; margin: 0;
+  font-weight: 800; font-size: 45px; line-height: 41px; letter-spacing: -0.5px;
+}
+
+.pill {
+  display: inline-flex; align-items: center;
+  font-family: Nunito, system-ui, sans-serif; font-weight: 700;
+  border: 2px solid var(--ink); border-radius: 999px; white-space: nowrap;
+}
+.pill-date {
+  position: absolute; right: 30px; top: 60px;
+  background: var(--yellow); border-width: 2.5px; padding: 4px 14px; font-size: 15px; line-height: 20px;
+}
+.pill-nr { background: var(--light-pink); padding: 3px 12px; font-size: 14px; line-height: 19px; }
+
+/* ---------- Vraagkaartje ---------- */
+.card {
+  position: absolute; left: 24px; top: 150px; width: 342px; min-height: 236px;
+  display: flex; flex-direction: column; gap: 16px;
+  padding: 22px 22px 20px;
+  background: #fff; border: 3px solid var(--ink); border-radius: 28px;
+  box-shadow: 5px 5px 0 var(--ink);
+  transform: rotate(-1.2deg);
+}
+.card-head { display: flex; align-items: center; justify-content: space-between; }
+.card-head img { display: block; }
+.prompt {
+  margin: 0; font-weight: 700; font-size: 28px; line-height: 1.18;
+  max-height: 140px; overflow: hidden; overflow-wrap: break-word;
+}
+.card.pop { animation: pop .45s cubic-bezier(.3,1.6,.5,1); }
+@keyframes pop {
+  0%   { transform: rotate(-1.2deg) scale(.94); }
+  60%  { transform: rotate(1.5deg) scale(1.02); }
+  100% { transform: rotate(-1.2deg) scale(1); }
+}
+
+/* ---------- Teller ---------- */
+.counter {
+  position: absolute; left: 38px; top: 417px; width: 205px; margin: 0;
+  font-family: Nunito, system-ui, sans-serif; font-weight: 700; font-size: 17px; line-height: 1.15;
+}
+.plucks { position: absolute; left: 245px; top: 412px; display: flex; gap: 4px; }
+.plucks img { display: block; width: 34px; height: 34px; }
+.plucks img.just-plucked { animation: wobble .5s ease; }
+@keyframes wobble { 0%{transform:scale(1)} 30%{transform:scale(1.25) rotate(-12deg)} 100%{transform:scale(1)} }
+
+/* ---------- Knoppen ---------- */
+.actions { position: absolute; left: 24px; top: 464px; width: 342px; display: flex; flex-direction: column; gap: 14px; }
+.actions[hidden] { display: none; }
+.btn {
+  height: 58px; width: 100%;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 0 20px;
+  font-family: Grandstander, system-ui, sans-serif; font-weight: 700; font-size: 20px; color: var(--ink);
+  border: 3px solid var(--ink); border-radius: 999px;
+  box-shadow: 4px 4px 0 var(--ink);
+  cursor: pointer;
+  transition: transform .08s ease, box-shadow .08s ease;
+}
+.btn:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--ink); }
+.btn:focus-visible, .tab:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.btn-pink { background: var(--pink); }
+.btn-white { background: #fff; }
+.btn:disabled {
+  background: var(--off); color: var(--grey-text);
+  border-style: dashed; box-shadow: none; cursor: default; transform: none;
+}
+.note {
+  margin: 0; text-align: center;
+  font-family: Nunito, system-ui, sans-serif; font-weight: 700; font-size: 15px;
+  background: #fff; border: 2px solid var(--ink); border-radius: 16px; padding: 6px 10px;
+}
+
+/* ---------- Tuin ---------- */
+.garden-title {
+  position: absolute; left: 0; right: 0; top: 94px; margin: 0; text-align: center;
+  font-weight: 800; font-size: 44px; line-height: 44px; letter-spacing: -0.5px;
+}
+#garden-flowers img { transition: opacity .3s; }
+.garden-list {
+  position: absolute; left: 0; right: 0; top: 278px; bottom: 100px;
+  margin: 0; padding: 4px 24px 12px;
+  list-style: none;
+  display: flex; flex-direction: column; gap: 14px;
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.garden-list::-webkit-scrollbar { display: none; }
+.garden-item {
+  flex: none;
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 16px;
+  background: #fff; border: 3px solid var(--ink); border-radius: 22px;
+  box-shadow: 4px 4px 0 var(--ink);
+}
+.garden-item svg { flex: none; display: block; }
+.garden-item .when { display: block; font-family: Nunito, system-ui, sans-serif; font-weight: 700; font-size: 14px; color: var(--grey-text); }
+.garden-item .what { display: block; font-weight: 700; font-size: 18px; line-height: 1.2; }
+.garden-empty { background: #fff; border: 3px dashed var(--ink); border-radius: 22px; padding: 18px; text-align: center; }
+.garden-empty strong { display: block; font-size: 20px; margin-bottom: 4px; }
+.garden-empty span { font-family: Nunito, system-ui, sans-serif; font-weight: 700; font-size: 15px; }
+
+/* ---------- Tabbalk ---------- */
+.tabbar {
+  position: absolute; left: 24px; bottom: 28px; width: 342px; height: 60px;
+  display: flex; gap: 6px; padding: 6px;
+  background: #fff; border: 3px solid var(--ink); border-radius: 999px;
+  box-shadow: 4px 4px 0 var(--ink);
+  z-index: 5;
+}
+.tab {
+  flex: 1; height: 100%;
+  font-family: Grandstander, system-ui, sans-serif; font-weight: 700; font-size: 17px; color: var(--ink);
+  background: transparent; border: 0; border-radius: 999px; cursor: pointer;
+}
+.tab.is-active { background: var(--yellow); }
+
+@media (prefers-reduced-motion: reduce) {
+  .card.pop, .plucks img.just-plucked { animation: none; }
+  .btn { transition: none; }
+}
