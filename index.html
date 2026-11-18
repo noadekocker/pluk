@@ -15,11 +15,25 @@
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Grandstander:wght@700;800&family=Nunito:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Courier+Prime:wght@400;700&family=Grandstander:wght@700;800&family=Nunito:wght@700&family=Patrick+Hand&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<script>try{var t=localStorage.getItem("pluk-theme");if(t==="zacht")document.documentElement.dataset.theme="zacht";}catch(e){}</script>
+<script>try{var t=localStorage.getItem("pluk-theme");if(t==="zacht"||t==="krijt")document.documentElement.dataset.theme=t;}catch(e){}</script>
 </head>
 <body>
+<!-- krijtrandje voor het thema "krijt" -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <filter id="krijt" x="-8%" y="-8%" width="116%" height="116%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="7" result="w"/>
+    <feDisplacementMap in="SourceGraphic" in2="w" scale="5" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="2" result="g"/>
+    <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -1.7 0 0 0 1.5" result="m"/>
+    <feComposite in="d" in2="m" operator="in"/>
+  </filter>
+  <filter id="krijt-vlak" x="-8%" y="-8%" width="116%" height="116%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="7" result="w"/>
+    <feDisplacementMap in="SourceGraphic" in2="w" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
 <div id="frame">
 <div id="stage">
 
@@ -35,6 +49,16 @@
       <img class="deco" src="assets/main-tuft3.svg" alt="" style="left:320px; top:88px; width:40px">
       <img class="deco" src="assets/main-daisy-big.svg" alt="" style="left:18px; top:75px; width:46px">
       <img class="deco" src="assets/main-daisy-small.svg" alt="" style="left:300px; top:136px; width:28px">
+    </div>
+
+    <div class="t-krijt" aria-hidden="true">
+      <img class="deco" src="assets/krijt-wall.svg" alt="" style="left:0; top:0; width:390px">
+      <div class="table" style="height:250px">
+        <img class="table-edge" src="assets/krijt-table.svg" alt="">
+        <img class="deco wobble" src="assets/krijt-orange.svg" alt="" style="left:14px; top:40px; width:76px">
+        <img class="deco wobble" src="assets/krijt-pear.svg" alt="" style="left:292px; top:22px; width:64px">
+        <img class="deco wobble" src="assets/krijt-lemon.svg" alt="" style="left:176px; top:96px; width:48px">
+      </div>
     </div>
 
     <div class="t-zacht" aria-hidden="true">
@@ -53,6 +77,7 @@
         <span id="prompt-nr" class="pill pill-nr"></span>
         <img class="t-zonnig" src="assets/card-face.svg" alt="" width="30" height="30">
         <img class="t-zacht" src="assets/sparkle.svg" alt="" width="26" height="26">
+        <img class="t-krijt" src="assets/krijt-lemon.svg" alt="" width="34" height="34">
       </div>
       <p id="prompt" class="prompt"></p>
     </article>
@@ -84,6 +109,10 @@
     <div class="grass grass-garden t-zonnig">
       <img class="grass-edge" src="assets/tuin-grass.svg" alt="">
     </div>
+    <div class="t-krijt" aria-hidden="true">
+      <div class="wall-crop"><img class="deco" src="assets/krijt-wall.svg" alt="" style="left:0; top:0; width:390px"></div>
+      <div class="table table-garden"><img class="table-edge" src="assets/krijt-table.svg" alt=""></div>
+    </div>
     <div class="t-zacht" aria-hidden="true">
       <img class="deco sparkle" src="assets/sparkle.svg" alt="" style="left:58px; top:58px; width:22px">
       <img class="deco sparkle" src="assets/sparkle.svg" alt="" style="left:320px; top:150px; width:28px">
@@ -91,11 +120,11 @@
     </div>
     <h1 id="garden-title" class="garden-title">mijn tuin</h1>
     <div id="garden-flowers" aria-hidden="true">
-      <span class="slot"><img class="deco t-zonnig" src="assets/tuin-flowers-1.svg" alt="" style="left:44px; top:204px; width:38px"><img class="deco t-zacht sparkle" src="assets/sparkle.svg" alt="" style="left:48px; top:208px; width:30px"></span>
-      <span class="slot"><img class="deco t-zonnig" src="assets/tuin-flowers-2.svg" alt="" style="left:116px; top:212px; width:30px"><img class="deco t-zacht sparkle" src="assets/sparkle.svg" alt="" style="left:118px; top:214px; width:24px"></span>
-      <span class="slot"><img class="deco t-zonnig" src="assets/tuin-flowers-3.svg" alt="" style="left:170px; top:190px; width:52px"><img class="deco t-zacht sparkle" src="assets/sparkle.svg" alt="" style="left:174px; top:192px; width:44px"></span>
-      <span class="slot"><img class="deco t-zonnig" src="assets/tuin-flowers-4.svg" alt="" style="left:252px; top:208px; width:34px"><img class="deco t-zacht sparkle" src="assets/sparkle.svg" alt="" style="left:255px; top:210px; width:28px"></span>
-      <span class="slot"><img class="deco t-zonnig" src="assets/tuin-flowers-5.svg" alt="" style="left:312px; top:198px; width:42px"><img class="deco t-zacht sparkle" src="assets/sparkle.svg" alt="" style="left:316px; top:202px; width:34px"></span>
+      <span class="slot"><img class="deco t-zonnig" src="assets/tuin-flowers-1.svg" alt="" style="left:44px; top:204px; width:38px"><img class="deco t-zacht sparkle" src="assets/sparkle.svg" alt="" style="left:48px; top:208px; width:30px"><img class="deco t-krijt" src="assets/krijt-orange.svg" alt="" style="left:40px; top:192px; width:46px"></span>
+      <span class="slot"><img class="deco t-zonnig" src="assets/tuin-flowers-2.svg" alt="" style="left:116px; top:212px; width:30px"><img class="deco t-zacht sparkle" src="assets/sparkle.svg" alt="" style="left:118px; top:214px; width:24px"><img class="deco t-krijt" src="assets/krijt-lemon.svg" alt="" style="left:112px; top:206px; width:36px"></span>
+      <span class="slot"><img class="deco t-zonnig" src="assets/tuin-flowers-3.svg" alt="" style="left:170px; top:190px; width:52px"><img class="deco t-zacht sparkle" src="assets/sparkle.svg" alt="" style="left:174px; top:192px; width:44px"><img class="deco t-krijt" src="assets/krijt-pear.svg" alt="" style="left:166px; top:176px; width:60px"></span>
+      <span class="slot"><img class="deco t-zonnig" src="assets/tuin-flowers-4.svg" alt="" style="left:252px; top:208px; width:34px"><img class="deco t-zacht sparkle" src="assets/sparkle.svg" alt="" style="left:255px; top:210px; width:28px"><img class="deco t-krijt" src="assets/krijt-lemon.svg" alt="" style="left:250px; top:202px; width:40px"></span>
+      <span class="slot"><img class="deco t-zonnig" src="assets/tuin-flowers-5.svg" alt="" style="left:312px; top:198px; width:42px"><img class="deco t-zacht sparkle" src="assets/sparkle.svg" alt="" style="left:316px; top:202px; width:34px"><img class="deco t-krijt" src="assets/krijt-orange.svg" alt="" style="left:306px; top:186px; width:52px"></span>
     </div>
     <ul id="garden-list" class="garden-list"></ul>
   </section>
@@ -104,9 +133,15 @@
     <button id="tab-today" class="tab is-active" type="button" aria-current="page">vandaag</button>
     <button id="tab-garden" class="tab" type="button">mijn tuin</button>
   </nav>
-  <button id="theme-btn" class="theme-btn" type="button" aria-label="Wissel naar het zachte thema">
-    <img class="t-zonnig" src="assets/sparkle.svg" alt="" width="30" height="30">
-    <img class="t-zacht" src="assets/count-on-1.svg" alt="" width="32" height="32">
+  <div id="theme-menu" class="theme-menu" role="menu" aria-label="Kies een thema" hidden>
+    <button class="theme-opt" type="button" role="menuitemradio" data-theme="zonnig"><img src="assets/count-on-1.svg" alt="" width="30" height="30"><span>zonnig</span></button>
+    <button class="theme-opt" type="button" role="menuitemradio" data-theme="zacht"><img src="assets/sparkle.svg" alt="" width="26" height="26"><span>zacht</span></button>
+    <button class="theme-opt" type="button" role="menuitemradio" data-theme="krijt"><img src="assets/krijt-orange.svg" alt="" width="32" height="32"><span>krijt</span></button>
+  </div>
+  <button id="theme-btn" class="theme-btn" type="button" aria-label="Kies een thema" aria-haspopup="true" aria-expanded="false" aria-controls="theme-menu">
+    <img class="t-zonnig" src="assets/count-on-1.svg" alt="" width="32" height="32">
+    <img class="t-zacht" src="assets/sparkle.svg" alt="" width="30" height="30">
+    <img class="t-krijt" src="assets/krijt-orange.svg" alt="" width="36" height="36">
   </button>
 
 </div>

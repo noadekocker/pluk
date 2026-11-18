@@ -89,18 +89,22 @@
   const OFF = ['assets/count-off-1.svg', 'assets/count-off-2.svg', 'assets/count-off-3.svg'];
   const ON_ZACHT = ['assets/sparkle-on.svg'];
   const OFF_ZACHT = ['assets/sparkle-off.svg'];
+  const FRUIT = ['assets/krijt-lemon.svg', 'assets/krijt-orange.svg', 'assets/krijt-pear.svg'];
+  const OFF_KRIJT = ['assets/krijt-lemon-off.svg'];
 
   // ---------- Thema ----------
   const THEME_KEY = 'pluk-theme';
-  const THEME_COLOR = { zonnig: '#A9C4FA', zacht: '#7E9CDA' };
-  function currentTheme() { return document.documentElement.dataset.theme === 'zacht' ? 'zacht' : 'zonnig'; }
+  const THEME_COLOR = { zonnig: '#A9C4FA', zacht: '#7E9CDA', krijt: '#DCCBB2' };
+  function currentTheme() {
+    const t = document.documentElement.dataset.theme;
+    return t === 'zacht' || t === 'krijt' ? t : 'zonnig';
+  }
   function applyTheme(theme) {
-    if (theme === 'zacht') document.documentElement.dataset.theme = 'zacht';
+    if (theme === 'zacht' || theme === 'krijt') document.documentElement.dataset.theme = theme;
     else delete document.documentElement.dataset.theme;
     const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', THEME_COLOR[theme]);
-    const btn = document.getElementById('theme-btn');
-    btn.setAttribute('aria-label', theme === 'zacht' ? 'Wissel naar het zonnige thema' : 'Wissel naar het zachte thema');
+    if (meta) meta.setAttribute('content', THEME_COLOR[theme] || THEME_COLOR.zonnig);
+    document.querySelectorAll('.theme-opt').forEach((b) => b.setAttribute('aria-checked', String(b.dataset.theme === theme)));
   }
   applyTheme(currentTheme());
 
@@ -149,8 +153,9 @@
       const img = document.createElement('img');
       img.alt = '';
       img.width = 34; img.height = 34;
-      const zacht = currentTheme() === 'zacht';
-      const on = zacht ? ON_ZACHT : ON, off = zacht ? OFF_ZACHT : OFF;
+      const theme = currentTheme();
+      const on = theme === 'zacht' ? ON_ZACHT : theme === 'krijt' ? FRUIT : ON;
+      const off = theme === 'zacht' ? OFF_ZACHT : theme === 'krijt' ? OFF_KRIJT : OFF;
       img.src = i < left ? on[i % on.length] : off[i % off.length];
       if (animate && i === left) img.classList.add('just-plucked');
       el.plucks.appendChild(img);
@@ -213,7 +218,10 @@
     for (const u of items) {
       const li = document.createElement('li');
       li.className = 'garden-item';
-      li.innerHTML = daisySVG(u.id, 40) + '<div><span class="when"></span><span class="what"></span></div>';
+      const icon = currentTheme() === 'krijt'
+        ? `<img src="${FRUIT[u.id % FRUIT.length]}" alt="" width="44" height="44">`
+        : daisySVG(u.id, 40);
+      li.innerHTML = icon + '<div><span class="when"></span><span class="what"></span></div>';
       li.querySelector('.when').textContent = dayMonth(u.date);
       li.querySelector('.what').textContent = PROMPTS[u.id] || '';
       el.list.appendChild(li);
@@ -257,17 +265,33 @@
   el.tabToday.addEventListener('click', () => show('today'));
   el.tabGarden.addEventListener('click', () => show('garden'));
 
-  el.themeBtn.addEventListener('click', () => {
-    const next = currentTheme() === 'zacht' ? 'zonnig' : 'zacht';
+  // themamenu
+  const menu = $('theme-menu');
+  function setMenu(open) {
+    menu.hidden = !open;
+    el.themeBtn.setAttribute('aria-expanded', String(open));
+    if (open) {
+      const cur = menu.querySelector('[aria-checked="true"]') || menu.querySelector('.theme-opt');
+      cur.focus();
+    }
+  }
+  el.themeBtn.addEventListener('click', (e) => { e.stopPropagation(); setMenu(menu.hidden); });
+  menu.querySelectorAll('.theme-opt').forEach((b) => b.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const next = b.dataset.theme;
     applyTheme(next);
-    try { localStorage.setItem(THEME_KEY, next); } catch (e) { /* privé-modus */ }
+    try { localStorage.setItem(THEME_KEY, next); } catch (err) { /* privé-modus */ }
+    setMenu(false);
+    el.themeBtn.focus();
     el.themeBtn.classList.remove('spin');
     void el.themeBtn.offsetWidth;
     el.themeBtn.classList.add('spin');
-    if (!el.today.hidden) renderToday(false);
-    // het typemachine-lettertype is breder: vraagje opnieuw passend maken zodra het geladen is
+    if (!el.today.hidden) renderToday(false); else renderGarden();
+    // andere lettertypes hebben een andere breedte: vraagje opnieuw passend maken
     if (document.fonts) document.fonts.ready.then(() => { if (!el.today.hidden) fitPrompt(); });
-  });
+  }));
+  document.addEventListener('click', () => { if (!menu.hidden) setMenu(false); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !menu.hidden) { setMenu(false); el.themeBtn.focus(); } });
 
   el.restart.addEventListener('click', () => {
     state = { used: [], day: null, current: null, spent: 0, picked: false };

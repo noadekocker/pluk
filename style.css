@@ -2,6 +2,7 @@
    Thema's
    - "zonnig" (standaard): lucht, gras, madeliefjes, dikke zwarte lijnen
    - "zacht": periwinkle-blauw, typemachine-letters, crème kaartjes, roze sterretjes
+   - "krijt": kraftpapier, pastelkrijt-kleuren, korrelige randen, fruit
    Alle kleuren en lettertypes zitten in de variabelen hieronder.
    ============================================================ */
 :root {
@@ -63,13 +64,43 @@
   --tilt: 0deg;
 }
 
+:root[data-theme="krijt"] {
+  --bg: #DCCBB2;
+  --ink: #2E1C14;
+  --line: #F0561C;
+  --card: #F7F3EA;
+  --primary: #FF9A4A;
+  --secondary: #8CC8F2;
+  --accent: #F7E04B;
+  --accent-2: #F7A8C8;
+  --off-bg: #E9DFCF;
+  --off-ink: #4A382E;
+  --muted: #6B5245;
+  --petal: #F7F3EA;
+  --heart: #FF9A4A;
+  --border: 3px;
+  --border-sm: 2.5px;
+  --shadow-card: none;
+  --shadow: none;
+  --shadow-press: none;
+  --r-card: 26px;
+  --r-item: 20px;
+  --font-display: "Caveat Brush", "Patrick Hand", cursive;
+  --font-body: "Patrick Hand", "Comic Sans MS", cursive;
+  --w-display: 400;
+  --w-logo: 400;
+  --tilt: 1deg;
+}
+
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
 
 /* elementen die maar bij één thema horen */
-.t-zacht { display: none !important; }
-:root[data-theme="zacht"] .t-zacht { display: block !important; }
-:root[data-theme="zacht"] .t-zonnig { display: none !important; }
+.t-zacht, .t-krijt { display: none !important; }
+:root[data-theme="zacht"] .t-zacht,
+:root[data-theme="krijt"] .t-krijt { display: block !important; }
+:root[data-theme="zacht"] .t-zonnig,
+:root[data-theme="krijt"] .t-zonnig { display: none !important; }
 
 html, body {
   margin: 0;
@@ -119,6 +150,7 @@ body { overflow: hidden; }
 /* Op een groot scherm tonen we de app als telefoon in het midden */
 body.desktop { display: flex; align-items: center; justify-content: center; background: #DCE6FB; }
 :root[data-theme="zacht"] body.desktop { background: #C9D5F0; }
+:root[data-theme="krijt"] body.desktop { background: #EFE4D3; }
 body.desktop #frame {
   margin: 0;
   border-radius: calc(44px * var(--s));
@@ -285,4 +317,116 @@ body.desktop #frame {
 @media (prefers-reduced-motion: reduce) {
   .card.pop, .plucks img.just-plucked, .sparkle, .theme-btn.spin img { animation: none; }
   .btn, .theme-btn, html, body, #stage { transition: none; }
+}
+
+/* ============================================================
+   Thema "krijt"
+   ============================================================ */
+
+/* kraftpapier-korrel */
+:root[data-theme="krijt"] #stage::after {
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  z-index: 20;
+  opacity: .28;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .35 0 0 0 0 .25 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* het witte krijt-tafelkleed onderaan (zoals het gras bij zonnig) */
+.table { position: absolute; left: 0; right: 0; bottom: 0; }
+.table-edge { position: absolute; left: 0; top: 0; width: 390px; height: 262px; display: block; }
+.table-garden { top: 236px; background: url(assets/krijt-table.svg) 0 220px / 390px 262px repeat-y, linear-gradient(transparent 24px, #EFE9DE 24px); }
+.wall-crop { position: absolute; left: 0; top: 0; width: 390px; height: 262px; overflow: hidden; }
+.table-garden .table-edge { height: 262px; }
+.wobble { animation: rock 4s ease-in-out infinite; transform-origin: 50% 90%; }
+.wobble:nth-of-type(2n) { animation-delay: -1.5s; }
+@keyframes rock { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+
+/* letters */
+:root[data-theme="krijt"] .logo { font-size: 64px; line-height: 50px; top: 50px; color: #C2300F; letter-spacing: 0; }
+:root[data-theme="krijt"] .garden-title { font-size: 60px; line-height: 50px; color: #C2300F; letter-spacing: 0; }
+:root[data-theme="krijt"] .prompt { font-size: 34px; line-height: 1.08; }
+:root[data-theme="krijt"] .btn { font-size: 26px; }
+:root[data-theme="krijt"] .tab { font-size: 22px; }
+:root[data-theme="krijt"] .pill-date { font-size: 18px; }
+:root[data-theme="krijt"] .pill-nr { font-size: 17px; }
+:root[data-theme="krijt"] .counter { font-size: 19px; line-height: 1.05; }
+:root[data-theme="krijt"] .note { font-size: 18px; }
+:root[data-theme="krijt"] .garden-item .when { font-size: 16px; }
+:root[data-theme="krijt"] .garden-item .what { font-size: 22px; line-height: 1.05; }
+:root[data-theme="krijt"] .garden-empty strong { font-family: var(--font-display); font-size: 26px; font-weight: 400; }
+:root[data-theme="krijt"] .garden-empty span { font-size: 18px; }
+
+/* Korrelige krijtranden: de vlak + rand zit in een ::before met het krijtfilter,
+   de tekst blijft zelf scherp. */
+:root[data-theme="krijt"] :is(.card, .btn, .pill, .note, .tabbar, .tab.is-active, .theme-btn, .garden-item, .garden-empty, .theme-opt) {
+  background: transparent;
+  border-color: transparent;
+  isolation: isolate;
+}
+:root[data-theme="krijt"] :is(.btn, .pill-nr, .note, .tab.is-active, .garden-item, .garden-empty, .theme-opt) { position: relative; }
+:root[data-theme="krijt"] :is(.card, .btn, .pill, .note, .tabbar, .tab.is-active, .theme-btn, .garden-item, .garden-empty, .theme-opt)::before,
+:root[data-theme="krijt"] :is(.card, .btn, .pill, .note, .tabbar, .tab.is-active, .theme-btn, .garden-item, .garden-empty, .theme-opt)::after {
+  content: "";
+  position: absolute; inset: calc(var(--border) * -1);
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+}
+/* vlak: dekkend, met een licht onregelmatige vorm */
+:root[data-theme="krijt"] :is(.card, .btn, .pill, .note, .tabbar, .tab.is-active, .theme-btn, .garden-item, .garden-empty, .theme-opt)::before {
+  background: var(--fill, var(--card));
+  filter: url(#krijt-vlak);
+}
+/* rand: korrelig krijt */
+:root[data-theme="krijt"] :is(.card, .btn, .pill, .note, .tabbar, .tab.is-active, .theme-btn, .garden-item, .garden-empty, .theme-opt)::after {
+  border: var(--edge-w, 3px) var(--edge-style, solid) var(--edge, var(--line));
+  filter: url(#krijt);
+}
+:root[data-theme="krijt"] .card        { --fill: var(--card);  --edge: #F0561C; --edge-w: 4px; }
+:root[data-theme="krijt"] .btn-pink    { --fill: var(--primary); --edge: #E8401C; }
+:root[data-theme="krijt"] .btn-white   { --fill: var(--secondary); --edge: #2C7FC4; }
+:root[data-theme="krijt"] .btn:disabled { --fill: var(--off-bg); --edge: #9C8573; --edge-style: dashed; background: transparent; }
+:root[data-theme="krijt"] .pill-date   { --fill: var(--accent-2); --edge: #E05597; }
+:root[data-theme="krijt"] .pill-nr     { --fill: var(--accent); --edge: #E8B400; }
+:root[data-theme="krijt"] .note        { --fill: var(--card); --edge: #2C7FC4; }
+:root[data-theme="krijt"] .tabbar      { --fill: var(--card); --edge: #2DA44E; }
+:root[data-theme="krijt"] .tab.is-active { --fill: var(--accent); --edge: transparent; --edge-w: 0px; }
+:root[data-theme="krijt"] .theme-btn   { --fill: var(--card); --edge: #E05597; }
+:root[data-theme="krijt"] .garden-item { --fill: var(--card); --edge: #E05597; }
+:root[data-theme="krijt"] .garden-item:nth-child(2n) { --edge: #F0561C; }
+:root[data-theme="krijt"] .garden-item:nth-child(3n) { --edge: #2C7FC4; }
+:root[data-theme="krijt"] .garden-empty { --fill: var(--card); --edge: #F0561C; --edge-style: dashed; }
+:root[data-theme="krijt"] .theme-opt   { --fill: var(--card); --edge: #2DA44E; }
+:root[data-theme="krijt"] .btn:active  { transform: translateY(2px) rotate(-.5deg); }
+:root[data-theme="krijt"] .garden-item img { flex: none; display: block; }
+
+/* ============================================================
+   Themamenu (opent boven de themaknop)
+   ============================================================ */
+.theme-menu {
+  position: absolute; right: 24px; bottom: 100px; z-index: 6;
+  display: flex; flex-direction: column; gap: 10px; align-items: flex-end;
+  animation: menu-in .22s cubic-bezier(.3,1.4,.5,1);
+}
+@keyframes menu-in { from { opacity: 0; transform: translateY(10px) scale(.95); } to { opacity: 1; transform: none; } }
+.theme-opt {
+  height: 50px; min-width: 132px;
+  display: flex; align-items: center; gap: 10px;
+  padding: 0 18px 0 12px;
+  font-family: var(--font-display); font-weight: var(--w-display); font-size: 18px; color: var(--ink);
+  background: var(--card); border: var(--border) solid var(--line); border-radius: 999px;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+}
+.theme-opt img { display: block; flex: none; }
+.theme-opt[aria-checked="true"] { background: var(--accent); }
+:root[data-theme="krijt"] .theme-opt[aria-checked="true"] { --fill: var(--accent); background: transparent; }
+:root[data-theme="krijt"] .theme-opt { font-size: 22px; }
+.theme-opt:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .wobble, .theme-menu { animation: none; }
 }
