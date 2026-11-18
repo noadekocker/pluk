@@ -1,6 +1,6 @@
 // Bewaart de app op je toestel zodat hij ook zonder internet werkt.
 // Pas je iets aan? Verhoog dan het versienummer hieronder.
-const CACHE = 'pluk-v1';
+const CACHE = 'pluk-v2';
 const FILES = [
     "./",
     "./index.html",
@@ -27,6 +27,9 @@ const FILES = [
     "./assets/main-tuft1.svg",
     "./assets/main-tuft2.svg",
     "./assets/main-tuft3.svg",
+    "./assets/sparkle.svg",
+    "./assets/sparkle-on.svg",
+    "./assets/sparkle-off.svg",
     "./assets/tuin-cloud-l.svg",
     "./assets/tuin-cloud-r.svg",
     "./assets/tuin-flowers-1.svg",

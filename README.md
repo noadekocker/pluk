@@ -6,6 +6,8 @@ Elke dag een journal-vraagje om te plukken.
 - Niet jouw ding? Je mag per dag **3 keer opnieuw plukken**.
 - Kies je een vraagje met **"deze neem ik!"**, dan plant je een bloemetje in **mijn tuin**. Dat vraagje krijg je nooit meer opnieuw.
 
+Rechtsonder wissel je tussen twee thema's: **zonnig** (lucht, gras en madeliefjes) en **zacht** (periwinkle-blauw, typemachine-letters en roze sterretjes).
+
 Alles wordt bewaard op je eigen toestel (in de browser). Er is geen account nodig.
 
 ## Op je telefoon zetten
@@ -19,7 +21,7 @@ Open de app-link in je browser:
 
 Alle vraagjes staan in [`prompts.js`](prompts.js). Zet nieuwe vraagjes altijd **onderaan** de lijst
 en verwijder geen bestaande, want de app onthoudt gebruikte vraagjes via hun plaats in de lijst.
-Verhoog daarna het versienummer (`pluk-v1` → `pluk-v2`) bovenaan in [`sw.js`](sw.js),
+Verhoog daarna het versienummer (`pluk-v2` → `pluk-v3`) bovenaan in [`sw.js`](sw.js),
 zodat telefoons de nieuwe versie ophalen.
 
 ## Bestanden
@@ -27,10 +29,10 @@ zodat telefoons de nieuwe versie ophalen.
 | Bestand | Wat |
 |---|---|
 | `index.html` | de schermen |
-| `style.css` | de vormgeving (kleuren, lettertypes, knoppen) |
+| `style.css` | de vormgeving: kleuren en lettertypes van beide thema's staan bovenaan |
 | `app.js` | hoe de app werkt (plukken, kiezen, tuin) |
 | `prompts.js` | alle journal-vraagjes |
 | `assets/` | wolkjes, gras, madeliefjes en app-iconen |
 | `sw.js`, `manifest.webmanifest` | zodat je de app kan installeren en offline gebruiken |
 
-Ontwerp: [Figma](https://www.figma.com/design/M4wDaCho5AlBm8etFmdSkc) · Lettertypes: [Grandstander](https://fonts.google.com/specimen/Grandstander) en [Nunito](https://fonts.google.com/specimen/Nunito)
+Ontwerp: [Figma](https://www.figma.com/design/M4wDaCho5AlBm8etFmdSkc) · Lettertypes: [Grandstander](https://fonts.google.com/specimen/Grandstander), [Nunito](https://fonts.google.com/specimen/Nunito) en [Courier Prime](https://fonts.google.com/specimen/Courier+Prime)

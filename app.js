@@ -82,10 +82,27 @@
     today: $('view-today'), garden: $('view-garden'),
     tabToday: $('tab-today'), tabGarden: $('tab-garden'),
     list: $('garden-list'), flowers: $('garden-flowers'),
+    themeBtn: $('theme-btn'),
   };
 
   const ON = ['assets/count-on-1.svg', 'assets/count-on-2.svg', 'assets/count-on-3.svg'];
   const OFF = ['assets/count-off-1.svg', 'assets/count-off-2.svg', 'assets/count-off-3.svg'];
+  const ON_ZACHT = ['assets/sparkle-on.svg'];
+  const OFF_ZACHT = ['assets/sparkle-off.svg'];
+
+  // ---------- Thema ----------
+  const THEME_KEY = 'pluk-theme';
+  const THEME_COLOR = { zonnig: '#A9C4FA', zacht: '#7E9CDA' };
+  function currentTheme() { return document.documentElement.dataset.theme === 'zacht' ? 'zacht' : 'zonnig'; }
+  function applyTheme(theme) {
+    if (theme === 'zacht') document.documentElement.dataset.theme = 'zacht';
+    else delete document.documentElement.dataset.theme;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', THEME_COLOR[theme]);
+    const btn = document.getElementById('theme-btn');
+    btn.setAttribute('aria-label', theme === 'zacht' ? 'Wissel naar het zonnige thema' : 'Wissel naar het zachte thema');
+  }
+  applyTheme(currentTheme());
 
   function shortDate(d) {
     return new Intl.DateTimeFormat('nl-BE', { weekday: 'short', day: 'numeric', month: 'short' })
@@ -132,7 +149,9 @@
       const img = document.createElement('img');
       img.alt = '';
       img.width = 34; img.height = 34;
-      img.src = i < left ? ON[i % 3] : OFF[i % 3];
+      const zacht = currentTheme() === 'zacht';
+      const on = zacht ? ON_ZACHT : ON, off = zacht ? OFF_ZACHT : OFF;
+      img.src = i < left ? on[i % on.length] : off[i % off.length];
       if (animate && i === left) img.classList.add('just-plucked');
       el.plucks.appendChild(img);
     }
@@ -174,8 +193,8 @@
     for (let i = 0; i < k; i++) { const a = p[i], b = p[(i + 1) % k]; c += `Q${f(a[0])} ${f(a[1])} ${f((a[0] + b[0]) / 2)} ${f((a[1] + b[1]) / 2)} `; }
     c += 'Z';
     return `<svg width="${size}" height="${size}" viewBox="-52 -52 104 104" aria-hidden="true">` +
-      `<path d="${d}" fill="#FFFFFF" stroke="#1B1B1B" stroke-width="3.2" stroke-linejoin="round"/>` +
-      `<path d="${c}" fill="#F8D24A" stroke="#1B1B1B" stroke-width="3.2" stroke-linejoin="round"/></svg>`;
+      `<path class="petal" d="${d}" stroke-width="3.2" stroke-linejoin="round"/>` +
+      `<path class="heart" d="${c}" stroke-width="3.2" stroke-linejoin="round"/></svg>`;
   }
 
   function renderGarden() {
@@ -237,6 +256,18 @@
   el.toGarden.addEventListener('click', () => show('garden'));
   el.tabToday.addEventListener('click', () => show('today'));
   el.tabGarden.addEventListener('click', () => show('garden'));
+
+  el.themeBtn.addEventListener('click', () => {
+    const next = currentTheme() === 'zacht' ? 'zonnig' : 'zacht';
+    applyTheme(next);
+    try { localStorage.setItem(THEME_KEY, next); } catch (e) { /* privé-modus */ }
+    el.themeBtn.classList.remove('spin');
+    void el.themeBtn.offsetWidth;
+    el.themeBtn.classList.add('spin');
+    if (!el.today.hidden) renderToday(false);
+    // het typemachine-lettertype is breder: vraagje opnieuw passend maken zodra het geladen is
+    if (document.fonts) document.fonts.ready.then(() => { if (!el.today.hidden) fitPrompt(); });
+  });
 
   el.restart.addEventListener('click', () => {
     state = { used: [], day: null, current: null, spent: 0, picked: false };

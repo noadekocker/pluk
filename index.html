@@ -15,8 +15,9 @@
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Grandstander:wght@700;800&family=Nunito:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Grandstander:wght@700;800&family=Nunito:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<script>try{var t=localStorage.getItem("pluk-theme");if(t==="zacht")document.documentElement.dataset.theme="zacht";}catch(e){}</script>
 </head>
 <body>
 <div id="frame">
@@ -24,10 +25,10 @@
 
   <!-- ===== Scherm: vandaag ===== -->
   <section id="view-today" class="view" aria-labelledby="logo">
-    <img class="deco" src="assets/main-cloud-l.svg" alt="" style="left:-30px; top:109px; width:150px">
-    <img class="deco" src="assets/main-cloud-r.svg" alt="" style="left:294px; top:21px; width:140px">
+    <img class="deco t-zonnig" src="assets/main-cloud-l.svg" alt="" style="left:-30px; top:109px; width:150px">
+    <img class="deco t-zonnig" src="assets/main-cloud-r.svg" alt="" style="left:294px; top:21px; width:140px">
 
-    <div class="grass" style="height:220px">
+    <div class="grass t-zonnig" style="height:220px">
       <img class="grass-edge" src="assets/main-grass.svg" alt="">
       <img class="deco" src="assets/main-tuft1.svg" alt="" style="left:168px; top:58px; width:54px">
       <img class="deco" src="assets/main-tuft2.svg" alt="" style="left:41px; top:104px; width:44px">
@@ -36,13 +37,22 @@
       <img class="deco" src="assets/main-daisy-small.svg" alt="" style="left:300px; top:136px; width:28px">
     </div>
 
+    <div class="t-zacht" aria-hidden="true">
+      <img class="deco sparkle" src="assets/sparkle.svg" alt="" style="left:196px; top:34px; width:20px">
+      <img class="deco sparkle" src="assets/sparkle.svg" alt="" style="left:14px; top:118px; width:26px">
+      <img class="deco sparkle" src="assets/sparkle.svg" alt="" style="left:52px; top:640px; width:34px">
+      <img class="deco sparkle" src="assets/sparkle.svg" alt="" style="left:292px; top:628px; width:24px">
+      <img class="deco sparkle" src="assets/sparkle.svg" alt="" style="left:178px; top:690px; width:18px">
+    </div>
+
     <h1 id="logo" class="logo">pluk</h1>
     <span id="date" class="pill pill-date"></span>
 
     <article id="card" class="card" aria-live="polite">
       <div class="card-head">
         <span id="prompt-nr" class="pill pill-nr"></span>
-        <img src="assets/card-face.svg" alt="" width="30" height="30">
+        <img class="t-zonnig" src="assets/card-face.svg" alt="" width="30" height="30">
+        <img class="t-zacht" src="assets/sparkle.svg" alt="" width="26" height="26">
       </div>
       <p id="prompt" class="prompt"></p>
     </article>
@@ -69,18 +79,23 @@
 
   <!-- ===== Scherm: mijn tuin ===== -->
   <section id="view-garden" class="view" aria-labelledby="garden-title" hidden>
-    <img class="deco" src="assets/tuin-cloud-r.svg" alt="" style="left:236px; top:19px; width:160px">
-    <img class="deco" src="assets/tuin-cloud-l.svg" alt="" style="left:-40px; top:120px; width:120px">
-    <div class="grass grass-garden">
+    <img class="deco t-zonnig" src="assets/tuin-cloud-r.svg" alt="" style="left:236px; top:19px; width:160px">
+    <img class="deco t-zonnig" src="assets/tuin-cloud-l.svg" alt="" style="left:-40px; top:120px; width:120px">
+    <div class="grass grass-garden t-zonnig">
       <img class="grass-edge" src="assets/tuin-grass.svg" alt="">
+    </div>
+    <div class="t-zacht" aria-hidden="true">
+      <img class="deco sparkle" src="assets/sparkle.svg" alt="" style="left:58px; top:58px; width:22px">
+      <img class="deco sparkle" src="assets/sparkle.svg" alt="" style="left:320px; top:150px; width:28px">
+      <img class="deco sparkle" src="assets/sparkle.svg" alt="" style="left:300px; top:44px; width:16px">
     </div>
     <h1 id="garden-title" class="garden-title">mijn tuin</h1>
     <div id="garden-flowers" aria-hidden="true">
-      <img class="deco" src="assets/tuin-flowers-1.svg" alt="" style="left:44px; top:204px; width:38px">
-      <img class="deco" src="assets/tuin-flowers-2.svg" alt="" style="left:116px; top:212px; width:30px">
-      <img class="deco" src="assets/tuin-flowers-3.svg" alt="" style="left:170px; top:190px; width:52px">
-      <img class="deco" src="assets/tuin-flowers-4.svg" alt="" style="left:252px; top:208px; width:34px">
-      <img class="deco" src="assets/tuin-flowers-5.svg" alt="" style="left:312px; top:198px; width:42px">
+      <span class="slot"><img class="deco t-zonnig" src="assets/tuin-flowers-1.svg" alt="" style="left:44px; top:204px; width:38px"><img class="deco t-zacht sparkle" src="assets/sparkle.svg" alt="" style="left:48px; top:208px; width:30px"></span>
+      <span class="slot"><img class="deco t-zonnig" src="assets/tuin-flowers-2.svg" alt="" style="left:116px; top:212px; width:30px"><img class="deco t-zacht sparkle" src="assets/sparkle.svg" alt="" style="left:118px; top:214px; width:24px"></span>
+      <span class="slot"><img class="deco t-zonnig" src="assets/tuin-flowers-3.svg" alt="" style="left:170px; top:190px; width:52px"><img class="deco t-zacht sparkle" src="assets/sparkle.svg" alt="" style="left:174px; top:192px; width:44px"></span>
+      <span class="slot"><img class="deco t-zonnig" src="assets/tuin-flowers-4.svg" alt="" style="left:252px; top:208px; width:34px"><img class="deco t-zacht sparkle" src="assets/sparkle.svg" alt="" style="left:255px; top:210px; width:28px"></span>
+      <span class="slot"><img class="deco t-zonnig" src="assets/tuin-flowers-5.svg" alt="" style="left:312px; top:198px; width:42px"><img class="deco t-zacht sparkle" src="assets/sparkle.svg" alt="" style="left:316px; top:202px; width:34px"></span>
     </div>
     <ul id="garden-list" class="garden-list"></ul>
   </section>
@@ -89,6 +104,10 @@
     <button id="tab-today" class="tab is-active" type="button" aria-current="page">vandaag</button>
     <button id="tab-garden" class="tab" type="button">mijn tuin</button>
   </nav>
+  <button id="theme-btn" class="theme-btn" type="button" aria-label="Wissel naar het zachte thema">
+    <img class="t-zonnig" src="assets/sparkle.svg" alt="" width="30" height="30">
+    <img class="t-zacht" src="assets/count-on-1.svg" alt="" width="32" height="32">
+  </button>
 
 </div>
 </div>
